@@ -1,36 +1,21 @@
-# wrappy
+Bank Lending System — Agetware Assignment
+  This project implements a Bank Lending System API using Node.js (Express) + SQLite with Simple Interest calculations.
+It supports:
+Loan creation (with EMI computation)
+Loan repayments (EMI or lump sum)
+Ledger view of all transactions
+Customer account overview
 
-Callback wrapping utility
-
-## USAGE
-
-```javascript
-var wrappy = require("wrappy")
-
-// var wrapper = wrappy(wrapperFunction)
-
-// make sure a cb is called only once
-// See also: http://npm.im/once for this specific use case
-var once = wrappy(function (cb) {
-  var called = false
-  return function () {
-    if (called) return
-    called = true
-    return cb.apply(this, arguments)
-  }
-})
-
-function printBoo () {
-  console.log('boo')
-}
-// has some rando property
-printBoo.iAmBooPrinter = true
-
-var onlyPrintOnce = once(printBoo)
-
-onlyPrintOnce() // prints 'boo'
-onlyPrintOnce() // does nothing
-
-// random property is retained!
-assert.equal(onlyPrintOnce.iAmBooPrinter, true)
-```
+Features:
+Loan Creation
+    Input: principal, interest rate, loan period
+    Output: loan details with EMI schedule
+Repayments
+    Record payments as EMI or LUMP_SUM
+    Automatically updates balance & status (ACTIVE → PAID_OFF)
+Ledger
+    Retrieve full payment history and current loan status
+Customer Overview
+    View all loans for a customer in one place
+Lightweight DB
+    Uses SQLite (better-sqlite3)
