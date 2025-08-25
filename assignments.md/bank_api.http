@@ -1,0 +1,41 @@
+# Bank Lending System — VS Code REST Client
+# Prereq: Install the "REST Client" extension (humao.rest-client)
+# Usage: Click "Send Request" above each request.
+@baseUrl = http://localhost:3000
+@customer_id = cust-101
+@loan_id =77e22a82-087a-480c-8c74-9ed2d121146d
+
+### LEND — Create Loan
+POST {{baseUrl}}/api/v1/loans
+Content-Type: application/json
+
+{
+  "customer_id": "{{customer_id}}",
+  "loan_amount": 100000,
+  "loan_period_years": 2,
+  "interest_rate_yearly": 10
+}
+
+### PAYMENT — EMI
+POST {{baseUrl}}/api/v1/loans/{{loan_id}}/payments
+Content-Type: application/json
+
+{
+  "amount": 6000,
+  "payment_type": "EMI"
+}
+
+### PAYMENT — LUMP_SUM
+POST {{baseUrl}}/api/v1/loans/{{loan_id}}/payments
+Content-Type: application/json
+
+{
+  "amount": 20000,
+  "payment_type": "LUMP_SUM"
+}
+
+### LEDGER — Transactions & Status
+GET {{baseUrl}}/api/v1/loans/{{loan_id}}/ledger
+
+### ACCOUNT OVERVIEW — For Customer
+GET {{baseUrl}}/api/v1/customers/{{customer_id}}/overview
